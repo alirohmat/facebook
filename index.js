@@ -13,11 +13,13 @@ const puppeteer = require('puppeteer');
     // Tunggu hingga elemen tertentu tersedia (opsional)
     await page.waitForSelector('#email');
 
-    // Ambil HTML seluruh halaman
-    const html = await page.content();
+    // Menyimpan halaman sebagai PDF
+    await page.pdf({
+        path: 'facebook_login_page.pdf', // Nama file PDF yang akan disimpan
+        format: 'A4' // Format kertas (A4 adalah ukuran standar)
+    });
 
-    // Cetak HTML ke terminal
-    console.log(html);
+    console.log('PDF telah disimpan!');
 
     // Tutup browser
     await browser.close();
