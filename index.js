@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs'); // Modul untuk menulis file
 
 (async () => {
     const browser = await puppeteer.launch({
@@ -16,14 +17,14 @@ const puppeteer = require('puppeteer');
     // Ambil HTML seluruh halaman
     const html = await page.content();
 
-    // Membuat halaman baru dengan HTML yang sudah diambil dan simpan sebagai PDF
-    await page.setContent(html);
-    await page.pdf({
-        path: 'facebook_login_page.pdf', // Nama file PDF yang akan disimpan
-        format: 'A4' // Format kertas (A4 adalah ukuran standar)
+    // Menyimpan HTML ke file
+    fs.writeFile('facebook_login_page.html', html, (err) => {
+        if (err) {
+            console.log('Gagal menyimpan file HTML:', err);
+        } else {
+            console.log('File HTML berhasil disimpan!');
+        }
     });
-
-    console.log('Halaman HTML telah disimpan sebagai PDF!');
 
     // Tutup browser
     await browser.close();
