@@ -1,7 +1,10 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-    const browser = await puppeteer.launch({ headless: true }); // Headless mode untuk pengambilan data
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: ['--no-sandbox'] // Menambahkan argumen --no-sandbox
+    });
     const page = await browser.newPage();
 
     // Buka halaman login Facebook
